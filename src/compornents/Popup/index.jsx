@@ -10,6 +10,7 @@ const Popup = ({ name, trigger, setTrigger }) => {
       <div className="popup">
         <h1>{name}</h1>
         <h2>Subtitulo</h2>
+        <h2> Reviews </h2>
         <button onClick={SetTrigToFalse}>Close</button>
       </div>
     </div>
