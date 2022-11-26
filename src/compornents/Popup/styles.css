@@ -1,0 +1,19 @@
+.popupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: aqua;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  border-radius: 25px;
+  background-color: white;
+  height: 70%;
+  width: 50%;
+}

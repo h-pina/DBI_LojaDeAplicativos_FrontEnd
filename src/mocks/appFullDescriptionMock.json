@@ -1,0 +1,29 @@
+{
+  "apps": {
+    "id": 1,
+    "id_empresa": 5,
+    "nome": "Google Drive",
+    "nome_empresa": "Google",
+    "descricao": "Armazenar aplicativos na nuvem",
+    "versao": 1,
+    "reviews": [
+      {
+        "usuario": "Hugo",
+        "nota": 10
+      },
+      {
+        "usuario": "Hugo",
+        "nota": 10
+      },
+      {
+        "usuario": "Hugo",
+        "nota": 10
+      },
+      {
+        "usuario": "Hugo",
+        "nota": 10
+      }
+    ],
+    "preco": 10
+  }
+}

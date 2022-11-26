@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "name": "Hugo Pina",
+      "balance": 1000
+    },
+
+    {
+      "id": 1,
+      "name": "Diogo Pina",
+      "balance": 2000
+    },
+    {
+      "id": 2,
+      "name": "Admin",
+      "balance": 99999
+    }
+  ]
+}

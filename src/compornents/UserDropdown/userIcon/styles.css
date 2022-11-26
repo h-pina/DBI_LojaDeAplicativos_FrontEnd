@@ -1,0 +1,24 @@
+.userContainer {
+  background-color: white;
+  width: 170px;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.userPic {
+  background-color: yellow;
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  margin-left: 10px;
+}
+
+.userInfoContainer {
+  margin-left: 10px;
+}
+
+.userLabel {
+  display: block;
+}

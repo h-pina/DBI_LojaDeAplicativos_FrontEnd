@@ -1,0 +1,21 @@
+.dropdown-container {
+  height: 500px;
+  width: 200px;
+}
+
+.active-item,
+.dropdown-item {
+  cursor: pointer;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 10px;
+}

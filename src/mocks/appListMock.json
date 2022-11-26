@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "img_link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4Qw4izG59ENBQITZpnFJBmbw42HLF3iH2l6q1IEFl44Bw87tJessAoiv9mabXllOZOMs&usqp=CAU",
+      "id": 1,
+      "id_empresa": 5,
+      "nome": "Google Drive",
+      "nome_empresa": "Google",
+      "preco": 10
+    },
+
+    {
+      "img_link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4Qw4izG59ENBQITZpnFJBmbw42HLF3iH2l6q1IEFl44Bw87tJessAoiv9mabXllOZOMs&usqp=CAU",
+      "id": 2,
+      "id_empresa": 4,
+      "nome": "Twitter",
+      "nome_empresa": "Twitter",
+      "preco": 20
+    },
+
+    {
+      "img_link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4Qw4izG59ENBQITZpnFJBmbw42HLF3iH2l6q1IEFl44Bw87tJessAoiv9mabXllOZOMs&usqp=CAU",
+      "id": 3,
+      "id_empresa": 3,
+      "nome": "Instagram",
+      "nome_empresa": "Facebook",
+      "preco": 20
+    }
+  ]
+}

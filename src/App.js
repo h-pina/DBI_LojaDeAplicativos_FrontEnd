@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./compornents/Header";
+import AppGrid from "./compornents/AppGrid";
+import { useEffect, useState } from "react";
+
+//Implement SearchBar search callbackl
 
 function App() {
+  /*const [appList, setAppList] = useState();
+
+  useEffect(() => {
+    async function fetchAllApps() {
+      const res = await fetch("http://localhost:5000/apps/getAllApps");
+      const resJson = await res.json();
+      setAppList(resJson.rows);
+    }
+    fetchAllApps();
+  }, []);*/
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <>
+        <Header />
+        <AppGrid />
+      </>
+    </>
   );
 }
 
