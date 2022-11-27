@@ -4,6 +4,7 @@ import AppGrid from "./compornents/AppGrid";
 import { useEffect, useState } from "react";
 
 //Implement SearchBar search callbackl
+//Fetch data inside App???
 
 function App() {
   /*const [appList, setAppList] = useState();

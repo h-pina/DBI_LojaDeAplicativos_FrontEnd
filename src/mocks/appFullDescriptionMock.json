@@ -1,5 +1,5 @@
 {
-  "apps": {
+  "app": {
     "id": 1,
     "id_empresa": 5,
     "nome": "Google Drive",
@@ -8,20 +8,24 @@
     "versao": 1,
     "reviews": [
       {
+        "id":1,
         "usuario": "Hugo",
         "nota": 10
       },
       {
-        "usuario": "Hugo",
-        "nota": 10
+        "id":2,
+        "usuario": "Diogo",
+        "nota": 2
       },
       {
-        "usuario": "Hugo",
-        "nota": 10
+        "id":3,
+        "usuario": "Rogerio",
+        "nota": 8
       },
       {
-        "usuario": "Hugo",
-        "nota": 10
+        "id":4,
+        "usuario": "Edna",
+        "nota": 9
       }
     ],
     "preco": 10
