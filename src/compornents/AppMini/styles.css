@@ -11,11 +11,19 @@
   cursor: pointer;
 }
 
-.appPic {
+.appPicContainer {
   background-color: var(--red);
   border-radius: 20%;
   margin: 10px;
   height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.appPic {
+  max-width: 80%;
+  max-height: 80%;
 }
 
 .appMiniLabel {

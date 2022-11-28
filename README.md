@@ -1,14 +1,17 @@
+# Done
+
 - [x] Show all apps
-- [ ] Searchbar
-- [ ] Apps Popup
-- [ ] Users
-- [ ] Select User
-- [ ] Edit User
-- [ ] Admin User
-  - [ ] Add New Apps
-  - [ ] Remove Apps
+- [x] Apps Popup
+- [x] Users
+- [x] Select User
+- [x] Admin Add new Apps
+- [x] Add Review
+- [x] Purchases List
 
----
+# To Do
 
-Fazer FrontEnd Mockado
-Modular Backend de acordo com os mocks
+- [ ] Add New App Popup
+- [ ] Edit User Info Popup
+
+- [ ] Admin Remove Apps
+- [ ] Searchbar Logic

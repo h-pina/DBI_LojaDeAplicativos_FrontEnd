@@ -17,3 +17,78 @@
   height: 70%;
   width: 50%;
 }
+
+.closePopupBtn {
+  border: none;
+  background-color: var(--red);
+  padding-inline: 10px;
+  border-radius: 5px;
+  margin-left: 93%;
+  margin-top: 1%;
+  font-size: larger;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.appInfo {
+  display: flex;
+  align-items: center;
+}
+
+.appIcon {
+  height: 150px;
+  width: 150px;
+  background-color: var(--red);
+  border-radius: 20px;
+  margin-left: 30px;
+}
+
+.appData {
+  align-self: flex-start;
+  margin-left: 20px;
+}
+
+.appData span {
+  display: block;
+}
+
+.appPrice {
+  margin-left: 200px;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.reviewsContainer {
+  margin-top: 20px;
+  margin-left: 30px;
+  height: 50%;
+  overflow-y: auto;
+}
+
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buyAppBtn,
+.reviewAppBtn {
+  height: 50px;
+  width: 150px;
+  background-color: rgb(7, 197, 7);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.reviewAppBtn {
+  margin-top: 10px;
+  height: 30px;
+  width: 150px;
+}
+
+.reviewItem {
+  margin-top: 10px;
+  margin-right: 20px;
+}

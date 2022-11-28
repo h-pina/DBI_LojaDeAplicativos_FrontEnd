@@ -1,6 +1,7 @@
 header {
   background-color: var(--red);
   height: 80px;
+  position: sticky;
 }
 
 .headerContainer {
@@ -30,4 +31,12 @@ header {
   align-self: flex-start;
   margin-top: 10px;
   border-radius: 50px;
+}
+
+.cartButton {
+  background-color: white;
+  padding: 16px;
+  padding-inline: 20px;
+  border-radius: 100px;
+  cursor: pointer;
 }

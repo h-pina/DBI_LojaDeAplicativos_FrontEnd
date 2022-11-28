@@ -3,7 +3,7 @@ import UserIcon from "./userIcon";
 import userFetched from "../../mocks/userMock.json";
 import { useEffect, useState } from "react";
 
-const Dropdown = () => {
+const Dropdown = ({ setActiveUserCallback }) => {
   const [dropdownOptions, setDropdownOptions] = useState(false);
   const [userList, setUserList] = useState(userFetched.users);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -14,6 +14,7 @@ const Dropdown = () => {
 
   function setNewActiveUser(userId) {
     setSelectedUser(userList[userId]);
+    setActiveUserCallback(userList[userId].name);
   }
 
   return (

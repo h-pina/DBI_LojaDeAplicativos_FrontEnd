@@ -2,7 +2,7 @@ import Popup from "../Popup";
 import { useState } from "react";
 import "./styles.css";
 
-const AppMini = ({ img, name, dev, price }) => {
+const AppMini = ({ appInfo, activeUser }) => {
   const [trigger, setTrigger] = useState(false);
 
   const openPopup = () => {
@@ -12,13 +12,20 @@ const AppMini = ({ img, name, dev, price }) => {
   return (
     <>
       <div className="appMini" onClick={openPopup}>
-        <div className="appPic" />
-        <span className="appMiniLabel">{name} </span>
-        <span className="appMiniLabel">{dev} </span>
-        <span className="appMiniLabel">{price} </span>
+        <div className="appPicContainer">
+          <img className="appPic" src={appInfo.imgLink} alt="" />
+        </div>
+        <span className="appMiniLabel">{appInfo.nome} </span>
+        <span className="appMiniLabel">{appInfo.nome_empresa} </span>
+        <span className="appMiniLabel">{appInfo.preco} </span>
       </div>
 
-      <Popup name={name} trigger={trigger} setTrigger={setTrigger} />
+      <Popup
+        appId={appInfo.id}
+        trigger={trigger}
+        setTrigger={setTrigger}
+        activeUser={activeUser}
+      />
     </>
   );
 };
