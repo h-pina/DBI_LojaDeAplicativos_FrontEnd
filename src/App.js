@@ -15,7 +15,6 @@ function App() {
     async function fetchAllApps() {
       const res = await fetch("http://localhost:5000/apps/listAllApps");
       const resJson = await res.json();
-      console.log(resJson);
       setAppList(resJson);
     }
     fetchAllApps();

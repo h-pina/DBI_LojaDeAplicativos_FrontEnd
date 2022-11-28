@@ -13,11 +13,15 @@ const AppMini = ({ appInfo, activeUser }) => {
     <>
       <div className="appMini" onClick={openPopup}>
         <div className="appPicContainer">
-          <img className="appPic" src={appInfo.imgLink} alt="" />
+          {/*<img className="appPic" src={appInfo.imgLink} alt="" />*/}
         </div>
         <span className="appMiniLabel">{appInfo.nome} </span>
-        <span className="appMiniLabel">{appInfo.nome_empresa} </span>
-        <span className="appMiniLabel">{appInfo.preco} </span>
+        {activeUser === "Admin" && (
+          <>
+            <span className="appMiniLabel">{appInfo.nome_empresa} </span>
+            <span className="appMiniLabel">{appInfo.preco} </span>
+          </>
+        )}
       </div>
 
       <Popup

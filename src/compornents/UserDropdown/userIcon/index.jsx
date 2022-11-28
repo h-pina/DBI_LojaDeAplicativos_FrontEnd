@@ -1,12 +1,11 @@
 import "./styles.css";
 
-const UserIcon = ({ userName, userBalance }) => {
+const UserIcon = ({ userName }) => {
   return (
     <div className="userContainer">
       <div className="userPic" />
       <div className="userInfoContainer">
         <span className="userLabel">{userName}</span>
-        <span className="userLabel">R${userBalance}</span>
       </div>
     </div>
   );
