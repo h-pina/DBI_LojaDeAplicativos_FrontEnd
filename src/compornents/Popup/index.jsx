@@ -1,48 +1,45 @@
 import "./styles.css";
 import { useState, useEffect } from "react";
 
-const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
+const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
   const SetTrigToFalse = () => {
     setTrigger(false);
   };
 
-  const [appInfo, setAppInfo] = useState();
-  const [isAppPurchased, setIsAppPurchased] = useState(false);
-  const [isAppReviwed, setIsAppReviwed] = useState(false);
+  const [isAppPurchased, setIsAppPurchased] = useState();
+  const [isAppReviwed, setIsAppReviwed] = useState();
   const [toggleAddReview, setToggleAddReview] = useState(false);
   const [reviewAdded, setReviewAdded] = useState(0);
+  const [fetchDone, setFetchDone] = useState(false);
 
   useEffect(() => {
-    async function fetchAll() {
-      const fullAppInfo = await fetch(
-        `http://localhost:5000/apps/getAppFullInfo/${appId}`
-      );
+    async function initialFetch() {
       const isPurchased = await fetch(
         `http://localhost:5000/purchases/isAppPurchased/${activeUser.id}/${appId}`
       );
+      console.log(appId + " isPurchased Fetched");
       const isReviwed = await fetch(
         `http://localhost:5000/reviews/isAppReviewed/${activeUser.id}/${appId}`
       );
+      console.log(appId + " isReviewed Fetched");
 
-      const responses = await Promise.all([
-        fullAppInfo,
-        isPurchased,
-        isReviwed,
-      ]);
+      const responses = await Promise.all([isPurchased, isReviwed]);
       const json = responses.map((response) => response.json());
       const data = await Promise.all(json);
 
-      const fullAppInfoJson = data[0];
-      const isPurchasedJson = data[1];
-      const isReviwedJson = data[2];
+      const isPurchasedJson = data[0];
+      const isReviwedJson = data[1];
 
-      setAppInfo(fullAppInfoJson.app[0]);
       setIsAppPurchased(isPurchasedJson);
+      console.log("isReviwed: " + isReviwedJson);
       setIsAppReviwed(isReviwedJson);
       setToggleAddReview(false);
+      setFetchDone(true);
+      console.log("Done");
     }
-    fetchAll();
-  });
+    console.log(appId + " Starting initial Fetch");
+    initialFetch();
+  }, []);
 
   async function buyApp() {
     const data = {
@@ -64,11 +61,15 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
   }
 
   async function postReview() {
+    let purchaseId = await fetch(
+      `http://localhost:5000/purchases/getPurchaseId/${activeUser.id}/${appId}`
+    );
+    let purchaseIdJson = await purchaseId.json();
     const data = {
       data: {
         id_app: appId,
         id_user: activeUser.id,
-        id_compra: "",
+        id_compra: purchaseIdJson,
         nota: reviewAdded,
       },
     };
@@ -81,11 +82,12 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
       },
       body: JSON.stringify(data),
     });
-    isAppReviwed(true);
+    setIsAppReviwed(true);
   }
 
   return trigger && appInfo ? (
     <>
+      {console.log(appId + " rendered")}
       <div className="popupContainer">
         <div className="popup">
           <button className="closePopupBtn" onClick={SetTrigToFalse}>
@@ -118,40 +120,58 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
               </div>
             ))}
           </div>
-          <div className="btnsContainer">
-            {isAppPurchased ? (
-              <>
-                {!isAppReviwed && toggleAddReview ? (
-                  <>
-                    <span>
-                      <input
-                        min={0}
-                        max={10}
-                        className="newReviewBtn"
-                        type="number"
-                        onChange={(e) => setReviewAdded(e.target.value)}
-                      />{" "}
-                      / 10
-                    </span>
-                    <input className="submit" type="submit" />
-                  </>
+          {fetchDone && (
+            <>
+              <div className="btnsContainer">
+                {console.log("isAppPurchased: " + isAppPurchased)}
+                {console.log("isAppReviewed" + isAppReviwed)}
+                {isAppReviwed ? (
+                  ""
                 ) : (
                   <>
-                    <button
-                      className="reviewAppBtn"
-                      onClick={() => setToggleAddReview(true)}
-                    >
-                      Adicionar Avaliacao
-                    </button>
+                    {isAppPurchased ? (
+                      <>
+                        {toggleAddReview ? (
+                          <>
+                            <span>
+                              <input
+                                min={0}
+                                max={10}
+                                className="newReviewBtn"
+                                type="number"
+                                onChange={(e) => setReviewAdded(e.target.value)}
+                              />{" "}
+                              / 10
+                            </span>
+                            <input
+                              className="submit"
+                              type="submit"
+                              onClick={postReview}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="reviewAppBtn"
+                              onClick={() => setToggleAddReview(true)}
+                            >
+                              Adicionar Avaliacao
+                            </button>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <button className="buyAppBtn" onClick={buyApp}>
+                          Comprar
+                        </button>
+                      </>
+                    )}
                   </>
                 )}
-              </>
-            ) : (
-              <button className="buyAppBtn" onClick={buyApp}>
-                Comprar
-              </button>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
