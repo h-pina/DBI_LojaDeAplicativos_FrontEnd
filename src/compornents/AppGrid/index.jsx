@@ -10,14 +10,14 @@ const AppGrid = ({ appList, activeUser }) => {
 
   return (
     <main>
-      {activeUser === "Admin" && (
+      {activeUser.name === "Admin" && (
         <div className="app addNewApp">
           <AppMini appInfo={adminAddnewApp} activeUser={activeUser} />
         </div>
       )}
       {appList.apps.map((app) => (
         <div className="app">
-          <AppMini appInfo={app} />
+          <AppMini appInfo={app} activeUser={activeUser} />
         </div>
       ))}
     </main>

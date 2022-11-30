@@ -1,6 +1,5 @@
 import "./styles.css";
 import UserIcon from "./userIcon";
-import userFetched from "../../mocks/userMock.json";
 import { useEffect, useState } from "react";
 
 const Dropdown = ({ setActiveUserCallback }) => {
@@ -21,7 +20,7 @@ const Dropdown = ({ setActiveUserCallback }) => {
   function setNewActiveUser(userId) {
     let newSelectedUser = userList.find((user) => user.id === userId);
     setSelectedUser(newSelectedUser);
-    setActiveUserCallback(newSelectedUser.name);
+    setActiveUserCallback(newSelectedUser);
   }
 
   return (

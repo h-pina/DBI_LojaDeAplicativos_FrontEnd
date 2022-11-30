@@ -88,6 +88,15 @@
   width: 150px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.newReviewBtn {
+}
+
 .reviewItem {
   margin-top: 10px;
   margin-right: 20px;
