@@ -16,7 +16,7 @@ const AppMini = ({ appInfo, activeUser }) => {
           {/*<img className="appPic" src={appInfo.imgLink} alt="" />*/}
         </div>
         <span className="appMiniLabel">{appInfo.nome} </span>
-        {activeUser === "Admin" && (
+        {activeUser.name === "Admin" && (
           <>
             <span className="appMiniLabel">{appInfo.nome_empresa} </span>
             <span className="appMiniLabel">{appInfo.preco} </span>

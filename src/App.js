@@ -8,7 +8,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //Implement SearchBar search callbackl
 
 function App() {
-  const [activeUser, setActiveUser] = useState("");
+  const [activeUser, setActiveUser] = useState({
+    id: "0000000001",
+    name: "Usuario A",
+  });
   const [appList, setAppList] = useState();
 
   useEffect(() => {
@@ -29,7 +32,10 @@ function App() {
               path="/"
               element={<AppGrid appList={appList} activeUser={activeUser} />}
             />
-            <Route path="/purchasesList" element={<PurchasesList />} />
+            <Route
+              path="/purchasesList"
+              element={<PurchasesList userId={activeUser.id} />}
+            />
           </Routes>
         </Router>
       </>
