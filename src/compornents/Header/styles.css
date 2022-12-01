@@ -34,7 +34,8 @@ header {
 }
 
 .cartButton {
-  background-color: white;
+  background-color: var(--blue);
+  color: wheat;
   padding: 16px;
   padding-inline: 20px;
   border-radius: 100px;

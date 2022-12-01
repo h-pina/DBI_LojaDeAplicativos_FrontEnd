@@ -1,22 +1,19 @@
 import "./styles.css";
 import { useState, useEffect } from "react";
 
-const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
+const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
   const SetTrigToFalse = () => {
     setTrigger(false);
   };
 
-  const [appInfo, setAppInfo] = useState();
-  const [isAppPurchased, setIsAppPurchased] = useState(false);
-  const [isAppReviwed, setIsAppReviwed] = useState(false);
+  const [isAppPurchased, setIsAppPurchased] = useState();
+  const [isAppReviwed, setIsAppReviwed] = useState();
   const [toggleAddReview, setToggleAddReview] = useState(false);
   const [reviewAdded, setReviewAdded] = useState(0);
+  const [fetchDone, setFetchDone] = useState(false);
 
   useEffect(() => {
-    async function fetchAll() {
-      const fullAppInfo = await fetch(
-        `http://localhost:5000/apps/getAppFullInfo/${appId}`
-      );
+    async function initialFetch() {
       const isPurchased = await fetch(
         `http://localhost:5000/purchases/isAppPurchased/${activeUser.id}/${appId}`
       );
@@ -24,25 +21,20 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
         `http://localhost:5000/reviews/isAppReviewed/${activeUser.id}/${appId}`
       );
 
-      const responses = await Promise.all([
-        fullAppInfo,
-        isPurchased,
-        isReviwed,
-      ]);
+      const responses = await Promise.all([isPurchased, isReviwed]);
       const json = responses.map((response) => response.json());
       const data = await Promise.all(json);
 
-      const fullAppInfoJson = data[0];
-      const isPurchasedJson = data[1];
-      const isReviwedJson = data[2];
+      const isPurchasedJson = data[0];
+      const isReviwedJson = data[1];
 
-      setAppInfo(fullAppInfoJson.app[0]);
       setIsAppPurchased(isPurchasedJson);
       setIsAppReviwed(isReviwedJson);
       setToggleAddReview(false);
+      setFetchDone(true);
     }
-    fetchAll();
-  });
+    initialFetch();
+  }, []);
 
   async function buyApp() {
     const data = {
@@ -64,11 +56,15 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
   }
 
   async function postReview() {
+    let purchaseId = await fetch(
+      `http://localhost:5000/purchases/getPurchaseId/${activeUser.id}/${appId}`
+    );
+    let purchaseIdJson = await purchaseId.json();
     const data = {
       data: {
         id_app: appId,
         id_user: activeUser.id,
-        id_compra: "",
+        id_compra: purchaseIdJson,
         nota: reviewAdded,
       },
     };
@@ -81,7 +77,7 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
       },
       body: JSON.stringify(data),
     });
-    isAppReviwed(true);
+    setIsAppReviwed(true);
   }
 
   return trigger && appInfo ? (
@@ -98,60 +94,78 @@ const Popup = ({ appId, activeUser, trigger, setTrigger }) => {
               <h2>{appInfo.nome_empresa}</h2>
               <p>{appInfo.descricao}</p>
               <span>
-                {appInfo.reviews.reduce(
-                  (partialSum, next) => partialSum + next.nota,
-                  0
-                ) / appInfo.reviews.length}
-                / 10
+                {Math.round(
+                  appInfo.reviews.reduce(
+                    (partialSum, next) => partialSum + next.nota,
+                    0
+                  ) / appInfo.reviews.length
+                )}
+                / 5
               </span>
             </div>
 
-            <span className="appPrice">R${appInfo.preco}</span>
+            <span className="appPrice">R${appInfo.preco},00</span>
           </div>
 
           <div className="reviewsContainer">
-            <h1 className="reviewsTitle">Avaliacoes</h1>
+            <h1 className="reviewsTitle">Avaliações</h1>
             {appInfo.reviews.map((review) => (
               <div className="reviewItem">
-                <span>{review.usuario}</span>
-                <span>{review.nota} / 10</span>
+                <span className="userReviewer">{review.usuario}</span>
+                <span className="reviewNote">{review.nota} / 5</span>
               </div>
             ))}
           </div>
-          <div className="btnsContainer">
-            {isAppPurchased ? (
-              <>
-                {!isAppReviwed && toggleAddReview ? (
-                  <>
-                    <span>
-                      <input
-                        min={0}
-                        max={10}
-                        className="newReviewBtn"
-                        type="number"
-                        onChange={(e) => setReviewAdded(e.target.value)}
-                      />{" "}
-                      / 10
-                    </span>
-                    <input className="submit" type="submit" />
-                  </>
+          {fetchDone && (
+            <>
+              <div className="btnsContainer">
+                {isAppReviwed ? (
+                  ""
                 ) : (
                   <>
-                    <button
-                      className="reviewAppBtn"
-                      onClick={() => setToggleAddReview(true)}
-                    >
-                      Adicionar Avaliacao
-                    </button>
+                    {isAppPurchased ? (
+                      <>
+                        {toggleAddReview ? (
+                          <>
+                            <span>
+                              <input
+                                min={0}
+                                max={10}
+                                className="newReviewBtn"
+                                type="number"
+                                onChange={(e) => setReviewAdded(e.target.value)}
+                              />{" "}
+                              / 5
+                            </span>
+                            <input
+                              className="submit"
+                              type="submit"
+                              onClick={postReview}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="reviewAppBtn"
+                              onClick={() => setToggleAddReview(true)}
+                            >
+                              Adicionar Avaliacao
+                            </button>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <button className="buyAppBtn" onClick={buyApp}>
+                          Comprar
+                        </button>
+                      </>
+                    )}
                   </>
                 )}
-              </>
-            ) : (
-              <button className="buyAppBtn" onClick={buyApp}>
-                Comprar
-              </button>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

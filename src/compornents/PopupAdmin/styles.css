@@ -93,14 +93,8 @@ input::-webkit-inner-spin-button {
   display: none;
   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
-.reviewItem {
-  padding-bottom: 5px;
-  border-bottom: 1px solid black;
-}
 
-.userReviewer {
-  margin-inline: 10px;
-  font-weight: 700;
+.newReviewBtn {
 }
 
 .reviewItem {

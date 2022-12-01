@@ -12,7 +12,7 @@ const Dropdown = ({ setActiveUserCallback }) => {
       const res = await fetch(`http://localhost:5000/users/listAllUsers`);
       const resJson = await res.json();
       setUserList(resJson.users);
-      setSelectedUser(resJson.users[0]);
+      setSelectedUser(resJson.users[1]);
     }
     fetchAll();
   }, []);

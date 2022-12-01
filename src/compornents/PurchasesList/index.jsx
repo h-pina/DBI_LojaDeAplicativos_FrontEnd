@@ -10,15 +10,13 @@ const PurchasesList = ({ userId }) => {
         `http://localhost:5000/purchases/getUserPurchases/${userId}`
       );
       const resJson = await res.json();
-      console.log(userId);
-      console.log(resJson);
       setPurchasesList(resJson.purchases);
     }
     fetchAll();
   }, [userId]);
   return (
     purchasesList && (
-      <>
+      <div className="purchases">
         <h1>Compras</h1>
         <table>
           <tr>
@@ -30,13 +28,13 @@ const PurchasesList = ({ userId }) => {
             <>
               <tr>
                 <td>{purchase.nome}</td>
-                <td>{purchase.preco}</td>
-                <td>{purchase.data_compra}</td>
+                <td>R${purchase.preco},00</td>
+                <td>{purchase.data_compra.substring(0, 10)}</td>
               </tr>
             </>
           ))}
         </table>
-      </>
+      </div>
     )
   );
 };
