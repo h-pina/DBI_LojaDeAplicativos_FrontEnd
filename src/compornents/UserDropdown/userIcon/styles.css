@@ -1,5 +1,6 @@
 .userContainer {
-  background-color: white;
+  background-color: var(--blue);
+  color: wheat;
   width: 170px;
   height: 50px;
   border-radius: 50px;

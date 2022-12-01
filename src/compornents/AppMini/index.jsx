@@ -1,4 +1,5 @@
 import Popup from "../Popup";
+import PopupAdmin from "../PopupAdmin";
 import { useState, useEffect } from "react";
 import "./styles.css";
 
@@ -11,14 +12,10 @@ const AppMini = ({ appInfo, activeUser }) => {
       const fullAppInfo = await fetch(
         `http://localhost:5000/apps/getAppFullInfo/${appInfo.id}`
       );
-      console.log(appInfo.id + " fullAppInfo Fetched");
 
       let fullAppInfoJson = await fullAppInfo.json();
-      console.log(fullAppInfoJson.app[0]);
       setFullAppInfo(fullAppInfoJson.app[0]);
-      console.log("Done");
     }
-    console.log(appInfo.id + " Starting initial Fetch");
     initialFetch();
   }, []);
 
@@ -37,19 +34,34 @@ const AppMini = ({ appInfo, activeUser }) => {
           {activeUser.name === "Admin" && (
             <>
               <span className="appMiniLabel">{appInfo.nome_empresa} </span>
-              <span className="appMiniLabel">{appInfo.preco} </span>
+              <span className="appMiniLabel">R${appInfo.preco},00 </span>
             </>
           )}
         </div>
-
-        {trigger && (
-          <Popup
-            appInfo={fullAppInfo}
-            appId={appInfo.id}
-            trigger={trigger}
-            setTrigger={setTrigger}
-            activeUser={activeUser}
-          />
+        {activeUser.name === "Admin" ? (
+          <>
+            {trigger && (
+              <PopupAdmin
+                appInfo={fullAppInfo}
+                appId={appInfo.id}
+                trigger={trigger}
+                setTrigger={setTrigger}
+                activeUser={activeUser}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {trigger && (
+              <Popup
+                appInfo={fullAppInfo}
+                appId={appInfo.id}
+                trigger={trigger}
+                setTrigger={setTrigger}
+                activeUser={activeUser}
+              />
+            )}
+          </>
         )}
       </>
     )

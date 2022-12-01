@@ -9,9 +9,10 @@ const Header = ({ setActiveUserCallback }) => {
         <Link to="/">
           <div className="logo" />
         </Link>
-        <input type="text" className="searchBar" />
-        <Link to="/purchasesList">
-          <div className="cartButton">C</div>
+        <Link to="/purchasesList" style={{ textDecoration: "none" }}>
+          <div className="cartButton">
+            <span>Meu Carrinho</span>
+          </div>
         </Link>
 
         <div className="user">

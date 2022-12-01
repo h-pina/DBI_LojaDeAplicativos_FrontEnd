@@ -17,11 +17,9 @@ const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
       const isPurchased = await fetch(
         `http://localhost:5000/purchases/isAppPurchased/${activeUser.id}/${appId}`
       );
-      console.log(appId + " isPurchased Fetched");
       const isReviwed = await fetch(
         `http://localhost:5000/reviews/isAppReviewed/${activeUser.id}/${appId}`
       );
-      console.log(appId + " isReviewed Fetched");
 
       const responses = await Promise.all([isPurchased, isReviwed]);
       const json = responses.map((response) => response.json());
@@ -31,13 +29,10 @@ const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
       const isReviwedJson = data[1];
 
       setIsAppPurchased(isPurchasedJson);
-      console.log("isReviwed: " + isReviwedJson);
       setIsAppReviwed(isReviwedJson);
       setToggleAddReview(false);
       setFetchDone(true);
-      console.log("Done");
     }
-    console.log(appId + " Starting initial Fetch");
     initialFetch();
   }, []);
 
@@ -87,7 +82,6 @@ const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
 
   return trigger && appInfo ? (
     <>
-      {console.log(appId + " rendered")}
       <div className="popupContainer">
         <div className="popup">
           <button className="closePopupBtn" onClick={SetTrigToFalse}>
@@ -100,31 +94,31 @@ const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
               <h2>{appInfo.nome_empresa}</h2>
               <p>{appInfo.descricao}</p>
               <span>
-                {appInfo.reviews.reduce(
-                  (partialSum, next) => partialSum + next.nota,
-                  0
-                ) / appInfo.reviews.length}
-                / 10
+                {Math.round(
+                  appInfo.reviews.reduce(
+                    (partialSum, next) => partialSum + next.nota,
+                    0
+                  ) / appInfo.reviews.length
+                )}
+                / 5
               </span>
             </div>
 
-            <span className="appPrice">R${appInfo.preco}</span>
+            <span className="appPrice">R${appInfo.preco},00</span>
           </div>
 
           <div className="reviewsContainer">
-            <h1 className="reviewsTitle">Avaliacoes</h1>
+            <h1 className="reviewsTitle">Avaliações</h1>
             {appInfo.reviews.map((review) => (
               <div className="reviewItem">
-                <span>{review.usuario}</span>
-                <span>{review.nota} / 10</span>
+                <span className="userReviewer">{review.usuario}</span>
+                <span className="reviewNote">{review.nota} / 5</span>
               </div>
             ))}
           </div>
           {fetchDone && (
             <>
               <div className="btnsContainer">
-                {console.log("isAppPurchased: " + isAppPurchased)}
-                {console.log("isAppReviewed" + isAppReviwed)}
                 {isAppReviwed ? (
                   ""
                 ) : (
@@ -141,7 +135,7 @@ const Popup = ({ appInfo, appId, activeUser, trigger, setTrigger }) => {
                                 type="number"
                                 onChange={(e) => setReviewAdded(e.target.value)}
                               />{" "}
-                              / 10
+                              / 5
                             </span>
                             <input
                               className="submit"
